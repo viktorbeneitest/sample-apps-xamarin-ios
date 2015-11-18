@@ -15,7 +15,6 @@ namespace CreditCardValidator.iOS.UITests
 		public void BeforeEachTest()
 		{
 			string deviceUDID = Environment.GetEnvironmentVariable ("IOS_SIMULATOR_UDID");
-			deviceUDID = "6BD58FE1-A8F7-4193-9EE0-7F2E5151BAA2";
 			ConfigureApp
 				.iOS
 				.InstalledApp("com.bitfall.creditcardvalidator")
