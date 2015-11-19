@@ -6,6 +6,7 @@ app:
   - XAMARIN_PROJECT: ./CreditCardValidator.iOS/CreditCardValidator.iOS.csproj
   - XAMARIN_TEST_PROJECT: ./CreditCardValidator.iOS.UITests/CreditCardValidator.iOS.UITests.csproj
   - BITRISE_XAMARIN_BUILD_TOOL: xbuild
+  - BITRISE_DEPLOY_DIR: ./deploy
 
 workflows:
   primary:
@@ -63,7 +64,7 @@ workflows:
     envs:
     - BITRISE_XAMARIN_CONFIGURATION: Debug
     - BITRISE_XAMARIN_PLATFORM: iPhone
-    - APP_NAME: Bitrise test
+    - APP_NAME: Bitrise ios test
     - ASYNC: yes
     - SERIES: master
     steps:
@@ -76,12 +77,12 @@ workflows:
         - xamarin_platform: $BITRISE_XAMARIN_PLATFORM
         - xamarin_builder: $BITRISE_XAMARIN_BUILD_TOOL
         - is_clean_build: yes
-        - api_key: $API_KEY
-        - user: $USER
-        - devices: $DEVICES
-        - app_name: $APP_NAME
-        - async: $ASYNC
-        - series: $SERIES
+        - xamarin_user: $USER
+        - test_cloud_api_key: $API_KEY
+        - test_cloud_devices: $DEVICES
+        - test_cloud_app_name: $APP_NAME
+        - test_cloud_is_async: $ASYNC
+        - test_cloud_series: $SERIES
     - script:
         title: Test cloud output
         inputs:
