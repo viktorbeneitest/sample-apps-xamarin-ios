@@ -1,0 +1,90 @@
+format_version: 1.1.0
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+
+app:
+  envs:
+  - XAMARIN_PROJECT: ./CreditCardValidator.iOS/CreditCardValidator.iOS.csproj
+  - XAMARIN_TEST_PROJECT: ./CreditCardValidator.iOS.UITests/CreditCardValidator.iOS.UITests.csproj
+  - BITRISE_XAMARIN_BUILD_TOOL: xbuild
+
+workflows:
+  primary:
+    before_run:
+    - unit-test
+    - archive
+    - test-cloud
+
+  archive:
+    envs:
+    - BITRISE_XAMARIN_CONFIGURATION: Release
+    - BITRISE_XAMARIN_PLATFORM: iPhone
+    steps:
+    - git::https://github.com/bitrise-io/steps-xamarin-ios-archive.git@master:
+        title: Archive
+        inputs:
+        - xamarin_project: $XAMARIN_PROJECT
+        - xamarin_configuration: $BITRISE_XAMARIN_CONFIGURATION
+        - xamarin_platform: $BITRISE_XAMARIN_PLATFORM
+        - xamarin_builder: $BITRISE_XAMARIN_BUILD_TOOL
+        - is_clean_build: yes
+    - script:
+        title: Archive output
+        inputs:
+        - content: |-
+            echo "BITRISE_IPA_PATH: ${BITRISE_IPA_PATH}"
+            echo "BITRISE_DSYM_PATH: ${BITRISE_DSYM_PATH}"
+
+  unit-test:
+    envs:
+    - BITRISE_XAMARIN_CONFIGURATION: Debug
+    - BITRISE_XAMARIN_PLATFORM: iPhoneSimulator
+    - SIMULATOR_DEVICE: iPhone 6
+    - SIMULATOR_OS_VERSION: iOS 9.1
+    steps:
+    - git::https://github.com/bitrise-io/steps-xamarin-ios-test.git@master:
+        title: Unit test
+        inputs:
+        - xamarin_project: $XAMARIN_PROJECT
+        - xamarin_test_project: $XAMARIN_TEST_PROJECT
+        - xamarin_configuration: $BITRISE_XAMARIN_CONFIGURATION
+        - xamarin_platform: $BITRISE_XAMARIN_PLATFORM
+        - xamarin_builder: $BITRISE_XAMARIN_BUILD_TOOL
+        - is_clean_build: yes
+        - simulator_device: $SIMULATOR_DEVICE
+        - simulator_os_version: $SIMULATOR_OS_VERSION
+    - script:
+        title: Unit test output
+        inputs:
+        - content: |-
+            echo "BITRISE_XAMARIN_TEST_RESULT: $BITRISE_XAMARIN_TEST_RESULT"
+            echo "BITRISE_XAMARIN_TEST_FULL_RESULTS_TEXT: $BITRISE_XAMARIN_TEST_FULL_RESULTS_TEXT"
+
+  test-cloud:
+    envs:
+    - BITRISE_XAMARIN_CONFIGURATION: Debug
+    - BITRISE_XAMARIN_PLATFORM: iPhone
+    - APP_NAME: Bitrise test
+    - ASYNC: yes
+    - SERIES: master
+    steps:
+    - git::https://github.com/bitrise-io/steps-xamarin-test-cloud-for-ios.git@master:
+        title: Test cloud
+        inputs:
+        - xamarin_project: $XAMARIN_PROJECT
+        - xamarin_test_project: $XAMARIN_TEST_PROJECT
+        - xamarin_configuration: $BITRISE_XAMARIN_CONFIGURATION
+        - xamarin_platform: $BITRISE_XAMARIN_PLATFORM
+        - xamarin_builder: $BITRISE_XAMARIN_BUILD_TOOL
+        - is_clean_build: yes
+        - api_key: $API_KEY
+        - user: $USER
+        - devices: $DEVICES
+        - app_name: $APP_NAME
+        - async: $ASYNC
+        - series: $SERIES
+    - script:
+        title: Test cloud output
+        inputs:
+        - content: |-
+            echo "BITRISE_XAMARIN_TEST_RESULT: $BITRISE_XAMARIN_TEST_RESULT"
+            echo "BITRISE_XAMARIN_TEST_FULL_RESULTS_TEXT: $BITRISE_XAMARIN_TEST_FULL_RESULTS_TEXT"
