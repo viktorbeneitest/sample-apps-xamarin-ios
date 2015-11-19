@@ -14,13 +14,14 @@ namespace CreditCardValidator.iOS.UITests
 		[SetUp]
 		public void BeforeEachTest()
 		{
+			string bundleID = "com.bitfall.creditcardvalidator";
 			string deviceUDID = Environment.GetEnvironmentVariable ("IOS_SIMULATOR_UDID");
+
 			ConfigureApp
 				.iOS
-				.InstalledApp("com.bitfall.creditcardvalidator")
+				.InstalledApp(bundleID)
 				.DeviceIdentifier(deviceUDID)
 				.StartApp();
-
 		}
 
 		[Test]
