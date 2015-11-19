@@ -63,7 +63,7 @@ workflows:
     envs:
     - BITRISE_XAMARIN_CONFIGURATION: Debug
     - BITRISE_XAMARIN_PLATFORM: iPhone
-    - APP_NAME: Bitrise test
+    - APP_NAME: Bitrise ios test
     - ASYNC: yes
     - SERIES: master
     steps:
