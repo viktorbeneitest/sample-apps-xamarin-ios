@@ -62,10 +62,11 @@
     <MtouchProfiling>true</MtouchProfiling>
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
-    <BuildIpa>true</BuildIpa>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchI18n>
     </MtouchI18n>
+    <IpaPackageName>
+    </IpaPackageName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

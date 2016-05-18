@@ -14,14 +14,22 @@ namespace CreditCardValidator.iOS.UITests
 		[SetUp]
 		public void BeforeEachTest()
 		{
-			string bundleID = "com.bitfall.creditcardvalidator";
+			string appBundlePath = Environment.GetEnvironmentVariable ("APP_BUNDLE_PATH");
 			string deviceUDID = Environment.GetEnvironmentVariable ("IOS_SIMULATOR_UDID");
 
-			ConfigureApp
-				.iOS
-				.InstalledApp(bundleID)
-				.DeviceIdentifier(deviceUDID)
-				.StartApp();
+			if (appBundlePath != null && appBundlePath != "" && deviceUDID != null && deviceUDID != "") {
+				// In case of Bitrise step: steps-xamarin-uitest
+				ConfigureApp
+					.iOS
+					.AppBundle (appBundlePath)
+					.DeviceIdentifier (deviceUDID)
+					.StartApp ();
+			} else {
+				// In case of Bitrise step: steps-xamarin-testcloud-for-ios
+				ConfigureApp
+					.iOS
+					.StartApp ();
+			}
 		}
 
 		[Test]
