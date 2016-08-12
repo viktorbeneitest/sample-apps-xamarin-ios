@@ -33,7 +33,7 @@
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer: Bitrise Bot (VV2J4SV8V4)</CodesignKey>
-    <CodesignProvision>8393d2be-30c4-4f7e-869c-27b6cf49a384</CodesignProvision>
+    <CodesignProvision>225561e6-3526-4edc-a046-7e0fa49eb4fe</CodesignProvision>
     <IpaPackageName>
     </IpaPackageName>
     <BuildIpa>true</BuildIpa>
