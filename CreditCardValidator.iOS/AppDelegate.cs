@@ -21,7 +21,7 @@ namespace CreditCardValidator.iOS
 			// If not required for your application you can safely delete this method
 
 			// Code to start the Xamarin Test Cloud Agent
-			#if ENABLE_TEST_CLOUD
+			#if DEBUG
 			Xamarin.Calabash.Start();
 			#endif
 
