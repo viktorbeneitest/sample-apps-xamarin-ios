@@ -6,7 +6,6 @@ namespace CreditCardValidator.iOS.NunitTests
 	[TestFixture]
 	public class TestsSample
 	{
-
 		[SetUp]
 		public void Setup ()
 		{
@@ -38,6 +37,5 @@ namespace CreditCardValidator.iOS.NunitTests
 			Assert.Inconclusive ("Inconclusive");
 		}
 	}
-
 }
 
