@@ -20,7 +20,6 @@ namespace CreditCardValidator.iOS.NunitTests
 		[Test]
 		public void Pass ()
 		{
-			Console.WriteLine ("test1");
 			Assert.True (true);
 		}
 
