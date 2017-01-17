@@ -64,7 +64,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  calabash-cucumber
+  calabash-cucumber (~> 0.20.3)
   xamarin-test-cloud
 
 BUNDLED WITH
